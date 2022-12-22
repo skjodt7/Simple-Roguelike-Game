@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import copy
 from typing import TYPE_CHECKING, TypeVar
 
@@ -33,8 +35,8 @@ class Entity:
         clone = copy.deepcopy(self)
         clone.x = x
         clone.y = y
-        gamemap.entities.add(clone)
         clone.gamemap = gamemap
+        gamemap.entities.add(clone)
 
         return clone
 

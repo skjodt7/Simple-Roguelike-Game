@@ -9,6 +9,10 @@ class Action:
         super().__init__()
         self.entity = entity
 
+
+    def get_engine(self):
+        return self.entity.gamemap.engine
+
     def perform(self):
         """Perform this action with the objects needed to determine its scope.
 
@@ -41,7 +45,8 @@ class ActionWithDirection(Action):
     @property
     def blocking_entity(self):
        """Return the blocking entity at this actions destination.."""
-       return self.engine.game_map.get_blocking_entity_at_location(*self.dest_xy)
+       engine = self.get_engine()
+       return self.get_engine().game_map.get_blocking_entity_at_location(*self.dest_xy)
 
 
     def perform(self):
@@ -51,11 +56,11 @@ class MovementAction(ActionWithDirection):
     def perform(self):
         dest_x, dest_y = self.dest_xy
 
-        if not self.engine.game_map.in_bounds(dest_x, dest_y):
+        if not self.get_engine().game_map.in_bounds(dest_x, dest_y):
             return # out of bounds
-        if not self.engine.game_map.tiles["walkable"][dest_x, dest_y]:
+        if not self.get_engine().game_map.tiles["walkable"][dest_x, dest_y]:
             return # wall / not walkable
-        if self.engine.game_map.get_blocking_entity_at_location(dest_x,  dest_y):
+        if self.get_engine().game_map.get_blocking_entity_at_location(dest_x,  dest_y):
             return
 
         self.entity.move(self.dx, self.dy)

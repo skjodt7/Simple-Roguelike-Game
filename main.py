@@ -25,12 +25,11 @@ def main():
     ROOM_MIN_SIZE = 6
     MAX_ROOMS = 20
     MAX_MONSTERS_PER_ROOM = 3
-
-    engine = Engine(player=player)
     
     # PLAYER ENTITY
     player = copy.deepcopy(entity_factory.player)
 
+    engine = Engine(player=player)
     engine.game_map = generate_dungeon(
         engine=engine,
         max_rooms=MAX_ROOMS,

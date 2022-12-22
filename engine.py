@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from tcod.context import Context
 from tcod.console import Console
 from tcod.map import compute_fov
@@ -13,28 +15,27 @@ if TYPE_CHECKING:
 
 
 class Engine:
-    gamemap: GameMap
+    game_map: GameMap
 
     def __init__(self, player):
         self.event_handler: EventHandler = EventHandler(self)
         self.player = player
 
     def update_fov(self):
-        self.gamemap.visible[:] = compute_fov(
-            self.gamemap.tiles["transparent"],
+        self.game_map.visible[:] = compute_fov(
+            self.game_map.tiles["transparent"],
             (self.player.x, self.player.y),
             radius=100
         )
-        self.gamemap.explored |= self.gamemap.visible
+        self.game_map.explored |= self.game_map.visible
 
     def render(self, console, context, player):
-        self.gamemap.render(console, player) # render tiles
+        self.game_map.render(console, player) # render tiles
 
         context.present(console)
         console.clear()
 
     def handle_enemy_turns(self):
-        for entity in self.gamemap.entities:
-            print(f"The {entity.name} wonders about aimlessly.")
-
+        for entity in self.game_map.entities:
+            pass
         

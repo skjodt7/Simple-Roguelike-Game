@@ -22,7 +22,7 @@ class GameMap:
         self.entities = set(entities)
 
     
-    def get_blocking_entity_at_location(self, location_x, location_y):
+    def get_blocking_entity_at_location(self, location_x, location_y,):
         for entity in self.entities:
             if entity.blocks_movement and entity.x == location_x and entity.y == location_y:
                 return entity
